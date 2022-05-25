@@ -5,16 +5,11 @@ import javax.swing.*;
 
 public class CheckStockButtonListener implements ActionListener
 {
-	private InventoryModel model;
 	private InventoryView view;
-	private JButton button;
 
-	public CheckStockButtonListener(InventoryModel model, InventoryView view,
-			JButton button)
+	public CheckStockButtonListener(InventoryView view)
 	{
-		this.model = model;
 		this.view = view;
-		this.button = button;
 	}
 
 	public void actionPerformed(ActionEvent event)

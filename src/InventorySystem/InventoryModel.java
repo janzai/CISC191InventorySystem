@@ -19,22 +19,30 @@ import java.io.*;
  */
 public class InventoryModel
 {
+	// InventoryModel HAS MANY Food Types
 	private static FoodType[][][] foodTypeArray;
 
+	/**
+	 * Constructor
+	 */
 	public InventoryModel()
 	{
+		// Calls the stockList method upon program start, opening the current stock list file
 		foodTypeArray = InventoryModel.stockList("StockListCurrent");
 	}
 
 	/**
 	 * Purpose: Allows user to call the soldProduct method on an object in the
-	 * array, lowering the stock count of the product by 1
+	 * array, lowering the stock by the given amount
 	 * 
-	 * @param foodTypeArray[FoodType][ProductType][Product]
+	 * @param UPC
+	 * @param amount
 	 */
 	public static String checkout(int UPC, int amount)
 	{
+		// Holds the amount of products to sell
 		int amountToSell = amount;
+		// Holds the UPC to sell
 		int upcToSell = UPC;
 
 		// Three for loops to search the array
@@ -56,7 +64,8 @@ public class InventoryModel
 							foodTypeArray[foodType][productType][product]
 									.soldProduct();
 						}
-
+						
+						// Returns the product type, name, and stock level as a string
 						return foodTypeArray[foodType][productType][product]
 								.getProduct() + " "
 								+ foodTypeArray[foodType][productType][product]
@@ -68,6 +77,8 @@ public class InventoryModel
 			}
 
 		}
+		
+		// Returns null to indicate the UPC was not found
 		return null;
 
 	}

@@ -5,16 +5,11 @@ import javax.swing.*;
 
 public class CheckoutButtonListener implements ActionListener
 {
-	private InventoryModel model;
 	private InventoryView view;
-	private JButton button;
 
-	public CheckoutButtonListener(InventoryModel model, InventoryView view,
-			JButton button)
+	public CheckoutButtonListener(InventoryView view)
 	{
-		this.model = model;
 		this.view = view;
-		this.button = button;
 	}
 
 	public void actionPerformed(ActionEvent event)

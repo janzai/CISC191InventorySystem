@@ -6,7 +6,6 @@ import java.util.*;
 
 public class InventoryView extends JFrame
 {
-	private InventoryModel model;
 	private JPanel checkoutPanel;
 	private JLabel checkoutLabel;
 	private JLabel checkoutUPCLabel;
@@ -32,7 +31,6 @@ public class InventoryView extends JFrame
 
 	public InventoryView(InventoryModel model)
 	{
-		this.model = model;
 
 		setLayout(new BorderLayout());
 
@@ -80,7 +78,7 @@ public class InventoryView extends JFrame
 
 		checkoutButton = new JButton("Checkout");
 		checkoutButton.addActionListener(
-				new CheckoutButtonListener(model, this, checkoutButton));
+				new CheckoutButtonListener(this));
 		c.gridwidth = 2;
 		c.gridx = 0;
 		c.gridy = 4;
@@ -118,7 +116,7 @@ public class InventoryView extends JFrame
 
 		checkStockButton = new JButton("Check Stock");
 		checkStockButton.addActionListener(
-				new CheckStockButtonListener(model, this, checkStockButton));
+				new CheckStockButtonListener(this));
 		c.gridwidth = 2;
 		c.gridx = 0;
 		c.gridy = 3;
@@ -137,8 +135,7 @@ public class InventoryView extends JFrame
 
 		uploadStockListButton = new JButton("Upload Stocklist");
 		uploadStockListButton
-				.addActionListener(new UploadStockListButtonListener(model,
-						this, uploadStockListButton));
+				.addActionListener(new UploadStockListButtonListener());
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -146,7 +143,7 @@ public class InventoryView extends JFrame
 
 		shutdownButton = new JButton("Shutdown");
 		shutdownButton.addActionListener(
-				new ShutdownButtonListener(model, this, shutdownButton));
+				new ShutdownButtonListener());
 		c.gridwidth = 1;
 		c.gridx = 1;
 		c.gridy = 0;
