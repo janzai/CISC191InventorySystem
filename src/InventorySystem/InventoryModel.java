@@ -9,10 +9,9 @@ import java.io.*;
  * @author Theodore Van Berlo
  * @author Jamie Anzai
  * 
- *         Version/date: v.1 4/8/2022
+ *         Version/date: v.1 5/25/2022
  * 
  *         Responsibilities of class:
- *         Contains the main method for the program
  *         Contains variables and methods required for maintaining a grocery
  *         store inventory
  * 
@@ -27,7 +26,8 @@ public class InventoryModel
 	 */
 	public InventoryModel()
 	{
-		// Calls the stockList method upon program start, opening the current stock list file
+		// Calls the stockList method upon program start, opening the current
+		// stock list file
 		foodTypeArray = InventoryModel.stockList("StockListCurrent");
 	}
 
@@ -37,6 +37,8 @@ public class InventoryModel
 	 * 
 	 * @param UPC
 	 * @param amount
+	 * 
+	 * @return String with the product type, name, and stock left after checkout
 	 */
 	public static String checkout(int UPC, int amount)
 	{
@@ -59,13 +61,22 @@ public class InventoryModel
 					{
 						// Calls soldProduct method on the current object a
 						// given amount of times
+						// We are aware the stock can become negative if the
+						// amount is greater than the stock on hand
+						// This is intentional, as since the amount would be
+						// input in person at a POS system, the clerk must have
+						// the product in hand.
+						// Therefore, a negative stock just means the inventory
+						// was off originally, and someone looking over the
+						// stock list can be aware of the problem
 						for (int sellTimes = 0; sellTimes < amountToSell; sellTimes++)
 						{
 							foodTypeArray[foodType][productType][product]
 									.soldProduct();
 						}
-						
-						// Returns the product type, name, and stock level as a string
+
+						// Returns the product type, name, and stock level after
+						// checkout as a string
 						return foodTypeArray[foodType][productType][product]
 								.getProduct() + " "
 								+ foodTypeArray[foodType][productType][product]
@@ -77,7 +88,7 @@ public class InventoryModel
 			}
 
 		}
-		
+
 		// Returns null to indicate the UPC was not found
 		return null;
 
@@ -87,7 +98,9 @@ public class InventoryModel
 	 * Purpose: Allows user to check the stock level of a certain object in the
 	 * FoodType array
 	 *
-	 * @param foodTypeArray[FoodType][ProductType][Product]
+	 * @param UPC
+	 * 
+	 * @return String with the product type, name, and stock level
 	 */
 	public static String checkStock(int UPC)
 	{
@@ -105,7 +118,8 @@ public class InventoryModel
 					if (upcToCheck == foodTypeArray[foodType][productType][product]
 							.getUPC())
 					{
-						// Returns the current objects name and stock
+						// Returns the product type, name, and stock level as a
+						// String
 						return foodTypeArray[foodType][productType][product]
 								.getProduct() + " "
 								+ foodTypeArray[foodType][productType][product]
@@ -160,7 +174,7 @@ public class InventoryModel
 				foodTypeArray = stockList("StockListNew");
 				// Only will happen if StockListNew is found because program
 				// will exit otherwise
-				
+
 				// Return foodTypeArray, exiting the method so it does not try
 				// to read from the missing file
 				return foodTypeArray;
@@ -168,7 +182,10 @@ public class InventoryModel
 			// Will enter else statement if couldn't find StockListNew
 			else
 			{
+				// Creates an error message if neither a current or new stock
+				// list were found
 				InventoryView.stockListNotFound();
+				// Closes the program after the error message is closed
 				System.exit(0);
 			}
 		}
@@ -354,7 +371,7 @@ public class InventoryModel
 		foodTypeArray[1] = dairyArray;
 		foodTypeArray[2] = produceArray;
 		foodTypeArray[3] = generalArray;
-		
+
 		// returns the array
 		return foodTypeArray;
 	}
@@ -362,7 +379,6 @@ public class InventoryModel
 	/**
 	 * Purpose: Saves the updated information to the text file and shuts down
 	 * 
-	 * @param foodTypeArray[FoodTypes][ProductTypes][Products]
 	 */
 	public static void shutdown()
 	{
